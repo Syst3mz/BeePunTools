@@ -1,0 +1,16 @@
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.exe
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.deps.json
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.runtimeconfig.json
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.runtimeconfig.dev.json
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.dll
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\ref\BeePunFinder.dll
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\BeePunFinder.pdb
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.csproj.AssemblyReference.cache
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.AssemblyInfoInputs.cache
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.AssemblyInfo.cs
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.csproj.CoreCompileInputs.cache
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.dll
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\ref\BeePunFinder.dll
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.pdb
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.genruntimeconfig.cache
