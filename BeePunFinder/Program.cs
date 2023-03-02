@@ -11,7 +11,7 @@ namespace BeePunFinder
     {
         static void Main(string[] args)
         {
-            var nm = MessageConvert("all of the things in the [()] can be made into bee puns and are synonyms to the original word in the message");
+            var nm = MessageConvert("it is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, and space station with enough power to destroy an entire planet. Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy");
             Console.WriteLine(nm);
         }
 
@@ -99,6 +99,11 @@ namespace BeePunFinder
             }
             
             List<string> validSwaps = new List<string>();
+            if (candidates.Contains(clean.ToLower()))
+            {
+                validSwaps.Add(clean);
+            }
+            
             foreach (string synonym in entry.synonyms)
             {
                 if (candidates.Contains(synonym))
