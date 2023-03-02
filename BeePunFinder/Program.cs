@@ -11,7 +11,7 @@ namespace BeePunFinder
     {
         static void Main(string[] args)
         {
-            var nm = MessageConvert("It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empires sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy....");
+            var nm = MessageConvert("Fourscore and seven years ago our fathers brought forth, on this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal. Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived, and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting-place for those who here gave their lives, that that nation might live. It is altogether fitting and proper that we should do this. But, in a larger sense, we cannot dedicate, we cannot consecrate—we cannot hallow—this ground. The brave men, living and dead, who struggled here, have consecrated it far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us—that from these honored dead we take increased devotion to that cause for which they here gave the last full measure of devotion—that we here highly resolve that these dead shall not have died in vain—that this nation, under God, shall have a new birth of freedom, and that government of the people, by the people, for the people, shall not perish from the earth.");
             Console.WriteLine(nm);
         }
 
@@ -41,12 +41,20 @@ namespace BeePunFinder
             return beeC;
         }
         
-        static List<TEntry> GetTEntries()
+        static Dictionary<string, TEntry> GetTEntries()
         {
-            var ret = new List<TEntry>();
+            var ret = new Dictionary<string, TEntry>();
             foreach (var line in File.ReadLines("en_thesaurus.jsonl"))
             {
-                ret.Add(JsonSerializer.Deserialize<TEntry>(line));
+                var t = JsonSerializer.Deserialize<TEntry>(line);
+                if (ret.ContainsKey(t.word))
+                {
+                    ret[t.word].synonyms.AddRange(t.synonyms);
+                }
+                else
+                {
+                    ret.Add(t.word, t);
+                }
             }
 
             return ret;
@@ -63,16 +71,8 @@ namespace BeePunFinder
                     candidates.Add(beeCandidate);
                 }
             }
-            
-            Dictionary<string, TEntry> lookup = new Dictionary<string, TEntry>();
 
-            foreach (var entry in GetTEntries())
-            {
-                if (!lookup.ContainsKey(entry.word))
-                {
-                    lookup.Add(entry.word, entry);
-                }
-            }
+            Dictionary<string, TEntry> lookup = GetTEntries();
 
 
             string newMessage = "";
@@ -90,13 +90,13 @@ namespace BeePunFinder
             if (lookup.ContainsKey(clean.ToLower()))
             {
                 var entry = lookup[clean.ToLower()];
-                if (entry.synonyms.Length >= 1)
+                if (entry.synonyms.Count >= 1)
                 {
                     foreach (string synonym in entry.synonyms)
                     {
                         if (candidates.Contains(synonym))
                         {
-                            return synonym;
+                            return $"[({synonym})]";
                         }
                     }
 
@@ -121,6 +121,6 @@ namespace BeePunFinder
         public string word { get; set; }
         public string key { get; set; }
         public string pos { get; set; }
-        public string[] synonyms { get; set; }
+        public List<string> synonyms { get; set; }
     }
 }
