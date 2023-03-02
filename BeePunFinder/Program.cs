@@ -10,20 +10,56 @@ namespace BeePunFinder
 {
     class Program
     {
-        private static bool FilterShort = true;
-        private static bool OutputBeeTxt = false;
-        private static bool UseList = true;
+        private static bool FilterShort;
+        private static bool OutputBeeTxt;
+        private static bool WriteList;
+
+        class Options
+        {
+            [Option('f', "FilterShort", HelpText = "Ignores words that are less than 2 chars to avoid substitutions with chemical elements.")]
+            public bool FilterShort { get; set; }
+            [Option('l', "WriteSubNames", HelpText = "Outputs the full list of found substitutions, if this is false, it will only output the first.")]
+            public bool WriteList { get; set; }
+            [Option('b', "OutputBeeText", HelpText = "Write out a new bee candidates file...its unclear why you would do this.")]
+            public bool OutputBeeTxt { get; set; }
+            [Option('i', "InputFile", HelpText = "Path to the input file.", SetName = "fop")]
+            public string InputFile { get; set; }
+            [Option('o', "OutputFile", HelpText = "Path to the output file.", SetName = "fop")]
+            public string OutputFile { get; set; }
+            [Option('c', "InstantConvert", HelpText = "Convert all of the following", SetName = "convert")]
+            public IEnumerable<string> InstantConvert { get; set; }
+        }
         
         static void Main(string[] args)
         {
-            var nm = MessageConvert("it is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, and space station with enough power to destroy an entire planet. Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy");
+            var result = Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(options =>
+                {
+                    FilterShort = options.FilterShort;
+                    OutputBeeTxt = options.OutputBeeTxt;
+                    WriteList = options.WriteList;
+
+                    if (options.InputFile != null)
+                    {
+                        if (options.OutputFile == null)
+                        {
+                            options.OutputFile = options.InputFile + ".o";
+                        }
+
+                        var f = File.ReadAllText(options.InputFile);
+                        var convert = MessageConvert(f);
+                        File.WriteAllText(options.OutputFile, convert);
+                    }
+                    else
+                    {
+                        Console.WriteLine(MessageConvert(string.Join(" ", options.InstantConvert)));
+                    }
+                });
 
             if (OutputBeeTxt)
             {
                 MakeBeeCandidates();
             }
-            
-            Console.WriteLine(nm);
         }
 
         static void MakeBeeCandidates()
@@ -89,8 +125,10 @@ namespace BeePunFinder
             string newMessage = "";
             foreach (var word in message.Split(" "))
             {
-                var clean = word.Trim().Trim("!\'\"\\.,/<>?}{[]|=+-_*!@#$%^&()}".ToArray());
-                newMessage += FindReplacement(clean, lookup, candidates) + " ";
+                bool addNewline = word.Contains("\n");
+
+                var clean = word.Trim().Trim("!\'\"\\.,/<>?}{[]|=+-_*!@#$%^&()\n\t}".ToArray());
+                newMessage += FindReplacement(clean, lookup, candidates) + " " + (addNewline? "\n" : "");
             }
             
             return newMessage;
@@ -131,7 +169,7 @@ namespace BeePunFinder
             if (validSwaps.Count >= 1)
             {
                 string o;
-                if (UseList)
+                if (WriteList)
                 {
                     o = string.Join(",", validSwaps);
                 }
