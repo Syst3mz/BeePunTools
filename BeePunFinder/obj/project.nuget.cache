@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QDrLr65Q12mXETXAHqodqlf1wWsp75xojU3iJMbHxVfNFj7bSLnFDwafzSHLKYZ9gVLlgp4Fo8g7Q84pqT7olQ==",
+  "dgSpecHash": "fp5NoJfp8AHKpCUcG2QGR86Q44fwg2RMEHELMq+Em33BxhG45u+Lqn43uF7VX5Vw//A/Eqf+Hd1gfXm98D7W8Q==",
   "success": true,
   "projectFilePath": "C:\\dev\\Csharp\\BeePunFinder\\BeePunFinder\\BeePunFinder.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ethan\\.nuget\\packages\\commandlineparser\\2.9.1\\commandlineparser.2.9.1.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -14,3 +14,5 @@ C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.dll
 C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\ref\BeePunFinder.dll
 C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.pdb
 C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.genruntimeconfig.cache
+C:\dev\Csharp\BeePunFinder\BeePunFinder\bin\Debug\net5.0\CommandLine.dll
+C:\dev\Csharp\BeePunFinder\BeePunFinder\obj\Debug\net5.0\BeePunFinder.csproj.CopyComplete

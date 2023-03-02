@@ -4,14 +4,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using CommandLine;
 
 namespace BeePunFinder
 {
     class Program
     {
+        private static bool FilterShort = true;
+        private static bool OutputBeeTxt = false;
+        private static bool UseList = true;
+        
         static void Main(string[] args)
         {
             var nm = MessageConvert("it is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, and space station with enough power to destroy an entire planet. Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy");
+
+            if (OutputBeeTxt)
+            {
+                MakeBeeCandidates();
+            }
+            
             Console.WriteLine(nm);
         }
 
@@ -87,6 +98,11 @@ namespace BeePunFinder
 
         private static string FindReplacement(string clean, Dictionary<string, TEntry> lookup, HashSet<string> candidates)
         {
+            if (FilterShort && clean.Length <= 2)
+            {
+                return clean;
+            }
+            
             if (!lookup.ContainsKey(clean.ToLower()))
             {
                 return clean;
@@ -114,7 +130,15 @@ namespace BeePunFinder
 
             if (validSwaps.Count >= 1)
             {
-                var o = string.Join(",", validSwaps);
+                string o;
+                if (UseList)
+                {
+                    o = string.Join(",", validSwaps);
+                }
+                else
+                {
+                    o = validSwaps[0];
+                }
                 return $"[({o})]";
             }
 
